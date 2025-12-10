@@ -1,0 +1,43 @@
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Modern Single Photo Frame -->
+  
+  <!-- Background dengan gradient subtle -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge> 
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Tidak ada background utama, biarkan transparan -->
+  
+  <!-- Large Polaroid frame untuk single photo -->
+  <g filter="url(#shadow)">
+    <!-- Polaroid frame outline -->
+    <rect x="100" y="100" width="600" height="600" fill="none" stroke="#333" stroke-width="3" rx="10"/>
+    <!-- Polaroid bottom area -->
+    <rect x="100" y="550" width="600" height="150" fill="#f8f9fa"/>
+  </g>
+  
+  <!-- Decorative elements -->
+  <circle cx="130" cy="130" r="12" fill="#ff6b6b" opacity="0.7"/>
+  <circle cx="670" cy="130" r="12" fill="#4ecdc4" opacity="0.7"/>
+  <circle cx="130" cy="670" r="12" fill="#45b7d1" opacity="0.7"/>
+  <circle cx="670" cy="670" r="12" fill="#f9ca24" opacity="0.7"/>
+  
+  <!-- Top banner area untuk header -->
+  <rect x="0" y="0" width="800" height="15" fill="#333" opacity="0.8"/>
+</svg>

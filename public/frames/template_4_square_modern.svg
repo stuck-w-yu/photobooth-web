@@ -1,0 +1,68 @@
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Modern Polaroid Style Frame untuk 4 Square -->
+  
+  <!-- Background dengan gradient subtle -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge> 
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Tidak ada background utama, biarkan transparan -->
+  
+  <!-- Polaroid frames untuk setiap foto -->
+  <!-- Foto 1 - kiri atas -->
+  <g filter="url(#shadow)">
+    <!-- Polaroid frame outline -->
+    <rect x="25" y="25" width="350" height="350" fill="none" stroke="#333" stroke-width="2" rx="5"/>
+    <!-- Polaroid bottom area -->
+    <rect x="25" y="315" width="350" height="60" fill="#f8f9fa"/>
+  </g>
+  
+  <!-- Foto 2 - kanan atas -->
+  <g filter="url(#shadow)">
+    <!-- Polaroid frame outline -->
+    <rect x="425" y="25" width="350" height="350" fill="none" stroke="#333" stroke-width="2" rx="5"/>
+    <!-- Polaroid bottom area -->
+    <rect x="425" y="315" width="350" height="60" fill="#f8f9fa"/>
+  </g>
+  
+  <!-- Foto 3 - kiri bawah -->
+  <g filter="url(#shadow)">
+    <!-- Polaroid frame outline -->
+    <rect x="25" y="425" width="350" height="350" fill="none" stroke="#333" stroke-width="2" rx="5"/>
+    <!-- Polaroid bottom area -->
+    <rect x="25" y="715" width="350" height="60" fill="#f8f9fa"/>
+  </g>
+  
+  <!-- Foto 4 - kanan bawah -->
+  <g filter="url(#shadow)">
+    <!-- Polaroid frame outline -->
+    <rect x="425" y="425" width="350" height="350" fill="none" stroke="#333" stroke-width="2" rx="5"/>
+    <!-- Polaroid bottom area -->
+    <rect x="425" y="715" width="350" height="60" fill="#f8f9fa"/>
+  </g>
+  
+  <!-- Decorative elements -->
+  <circle cx="60" cy="60" r="8" fill="#ff6b6b" opacity="0.7"/>
+  <circle cx="740" cy="60" r="8" fill="#4ecdc4" opacity="0.7"/>
+  <circle cx="60" cy="740" r="8" fill="#45b7d1" opacity="0.7"/>
+  <circle cx="740" cy="740" r="8" fill="#f9ca24" opacity="0.7"/>
+  
+  <!-- Top banner area untuk header -->
+  <rect x="0" y="0" width="800" height="15" fill="#333" opacity="0.8"/>
+</svg>

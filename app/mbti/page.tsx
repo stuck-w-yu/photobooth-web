@@ -1,10 +1,10 @@
 import Image from "next/image";
-import Docs from "../components/Docs";
+import MBTIPage from "../../components/MBTIPage";
 
 export default function Home() {
   return (
     <>
-      <Docs />
+      <MBTIPage />
     </>
   );
 }
