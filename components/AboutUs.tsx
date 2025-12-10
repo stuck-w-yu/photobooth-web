@@ -23,7 +23,7 @@ const developers = [
     name: "Rama Maghdalena",
     role: "WebDev",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike",
-    link: "https://linkedin.com",
+    link: "https://github.com/Rmglna-006",
     desc: "Prodi Sistem Informasi",
   },
   {
