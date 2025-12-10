@@ -6,39 +6,39 @@ import Link from "next/link";
 // --- DATA PENGEMBANG (Silakan edit di sini) ---
 const developers = [
   {
-    name: "Alex Sander",
-    role: "Lead Developer",
+    name: "Wahyu Firmansyah",
+    role: "WebDev",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex", // Placeholder avatar
-    link: "https://github.com",
-    desc: "Master of bugs and coffee.",
+    link: "https://github.com/stuck-w-yu",
+    desc: "Prodi Teknik Informatika",
   },
   {
-    name: "Sarah Croft",
-    role: "UI/UX Designer",
+    name: "Rijalul Firkri",
+    role: "WebDev",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-    link: "https://dribbble.com",
-    desc: "Making things pretty and functional.",
+    link: "https://github.com/qwerty0999999",
+    desc: "Prodi Teknik Informatika",
   },
   {
-    name: "Michael Chen",
-    role: "Backend Engineer",
+    name: "Rama Maghdalena",
+    role: "WebDev",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike",
     link: "https://linkedin.com",
-    desc: "Database whisperer.",
+    desc: "Prodi Sistem Informasi",
   },
   {
-    name: "Jessica Lee",
-    role: "Mobile Dev",
+    name: "Arif Budianto",
+    role: "Fullstack Developer",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jess",
-    link: "https://twitter.com",
-    desc: "iOS & Android wizard.",
+    link: "https://tigers.my.id/",
+    desc: "Mentor",
   },
   {
-    name: "Rian Ardianto",
-    role: "DevOps",
+    name: "Fedora Aliansi Digital",
+    role: "Community",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rian",
-    link: "https://google.com",
-    desc: "Keeping the servers alive.",
+    link: "https://fedoraweb.site",
+    desc: "WebDev Community",
   },
 ];
 
@@ -47,11 +47,11 @@ export default function AboutUs() {
     <section className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+        <div className="text-center mb-16 space-y-4 p-7">
+          <h2 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 p-7">
             Tim Pengembang
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-black max-w-2xl mx-auto text-lg">
             Di balik setiap baris kode yang hebat, ada tim yang berdedikasi.
             Kenali orang-orang yang membuat proyek ini menjadi nyata.
           </p>
@@ -71,7 +71,7 @@ export default function AboutUs() {
               <div className="h-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-2 hover:bg-white/10 hover:border-purple-500/30 hover:shadow-xl hover:shadow-purple-500/10">
                 
                 {/* Image Wrapper dengan Efek Glow */}
-                <div className="relative w-24 h-24 mb-4">
+                {/* <div className="relative w-24 h-24 mb-4">
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur opacity-0 group-hover:opacity-70 transition-opacity duration-300" />
                   <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/20 group-hover:border-white/80 transition-colors bg-gray-800">
                     <Image
@@ -81,16 +81,16 @@ export default function AboutUs() {
                       className="object-cover"
                     />
                   </div>
-                </div>
+                </div> */}
 
                 {/* Text Content */}
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-purple-300 transition-colors">
+                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-black transition-colors p-2">
                   {dev.name}
                 </h3>
-                <span className="text-xs font-medium px-3 py-1 bg-white/10 rounded-full text-purple-200 mb-3 border border-white/5 group-hover:bg-purple-500/20 group-hover:border-purple-500/30 transition-all">
+                <span className="text-xs font-medium px-3 py-1 bg-white/10 rounded-full text-white mb-3 border border-white/5 group-hover:bg-purple-500/20 group-hover:border-purple-500/30 transition-all">
                   {dev.role}
                 </span>
-                <p className="text-sm text-gray-400 leading-relaxed">
+                <p className="text-sm text-black leading-relaxed">
                   {dev.desc}
                 </p>
 
