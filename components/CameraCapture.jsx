@@ -39,7 +39,7 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture }) => {
             } else {
                 console.error("CAPTURE ERROR [Capture]: Video stream gagal siap setelah delay.");
             }
-        }, 100);
+        }, 700);
         return;
     }
 
