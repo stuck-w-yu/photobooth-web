@@ -10,6 +10,7 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture }) => {
   const canvasRef = useRef(null);
   const [stream, setStream] = useState(null);
   const [isReady, setIsReady] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   // Gunakan useCallback untuk memastikan handleCapture stabil
   const handleCapture = useCallback(() => {
@@ -78,7 +79,13 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture }) => {
 
   // Logika akses kamera (sama seperti sebelumnya)
   useEffect(() => {
-    if (!stream && typeof window !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    if (!stream && typeof window !== 'undefined') {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        setErrorMsg("Browser tidak mendukung akses kamera atau tidak aman (HTTPS required).");
+        setIsReady(true);
+        return;
+      }
+
       // ... (Logika mendapatkan stream) ...
       navigator.mediaDevices.getUserMedia({ video: true })
         .then((s) => {
@@ -93,6 +100,7 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture }) => {
         .catch((err) => {
           setIsReady(true);
           console.error("ERROR [Capture]: Gagal mengakses kamera:", err);
+          setErrorMsg("Akses kamera ditolak. Pastikan izin diberikan.");
         });
     }
 
@@ -130,8 +138,8 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture }) => {
         // Loading State
         <div className="flex flex-col items-center justify-center text-center p-8">
           <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-          <p className={`text-sm font-medium ${isReady ? 'text-red-400' : 'text-purple-300'}`}>
-            {isReady ? 'Kamera tidak tersedia atau akses ditolak.' : 'Menghubungkan ke kamera...'}
+          <p className={`text-sm font-medium ${isReady ? 'text-red-400' : 'text-purple-300'} max-w-xs`}>
+            {errorMsg || (isReady ? 'Kamera tidak tersedia atau akses ditolak.' : 'Menghubungkan ke kamera...')}
           </p>
         </div>
       )}
