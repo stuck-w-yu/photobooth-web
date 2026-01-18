@@ -13,54 +13,58 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture }) => {
   const [errorMsg, setErrorMsg] = useState(null);
 
   // Gunakan useCallback untuk memastikan handleCapture stabil
-  const handleCapture = useCallback(() => {
+  const handleCapture = useCallback(async () => {
     const video = videoRef.current;
 
     if (!video || !canvasRef.current) {
-      console.error("CAPTURE ERROR [Capture]: Video atau canvas belum siap.");
+      console.error("CAPTURE ERROR: Video/Canvas ref is null");
       return;
     }
 
-    // Tunggu sebentar jika video belum siap
-    if (!isReady || video.videoWidth === 0) {
-      console.log("LOG [Capture]: Video belum siap, mencoba lagi dalam 100ms...");
-      setTimeout(() => {
-        if (videoRef.current && videoRef.current.videoWidth > 0) {
-          // Coba capture lagi dengan memanggil logic langsung
-          const canvas = canvasRef.current;
-          const context = canvas.getContext('2d');
-          canvas.width = videoRef.current.videoWidth;
-          canvas.height = videoRef.current.videoHeight;
-          context.translate(canvas.width, 0);
-          context.scale(-1, 1);
-          context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-          context.setTransform(1, 0, 0, 1, 0, 0);
-          const imageDataURL = canvas.toDataURL('image/png');
-          onPhotoTaken(imageDataURL);
-        } else {
-          console.error("CAPTURE ERROR [Capture]: Video stream gagal siap setelah delay.");
+    // Helper: Tunggu sampai video memiliki dimensi (siap)
+    const waitForVideoReady = async (maxAttempts = 10, interval = 200) => {
+      for (let i = 0; i < maxAttempts; i++) {
+        if (video.readyState >= 2 && video.videoWidth > 0) { // HAVE_CURRENT_DATA
+          return true;
         }
-      }, 700);
+        console.log(`LOG [Capture]: Menunggu video ready... percobaan ${i + 1}/${maxAttempts}`);
+        await new Promise(r => setTimeout(r, interval));
+      }
+      return false;
+    };
+
+    const isVideoReady = await waitForVideoReady();
+
+    if (!isVideoReady) {
+      console.error("CAPTURE ERROR: Video stream timeout. Tidak mendapat dimensi video.");
+      // Fallback or Alert User here? For now just log.
+      // Bisa trigger callback error jika ada prop onError
       return;
     }
 
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
+    // Capture Frame
+    try {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
 
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
 
-    // Menerapkan transformasi cermin pada Canvas
-    context.translate(canvas.width, 0);
-    context.scale(-1, 1);
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    context.setTransform(1, 0, 0, 1, 0, 0);
+      // Transformasi Cermin
+      context.translate(canvas.width, 0);
+      context.scale(-1, 1);
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      context.setTransform(1, 0, 0, 1, 0, 0);
 
-    const imageDataURL = canvas.toDataURL('image/png');
-    console.log("SUCCESS [Capture]: Foto berhasil ditangkap.");
+      const imageDataURL = canvas.toDataURL('image/png');
+      console.log("SUCCESS [Capture]: Foto berhasil diambil.");
+      onPhotoTaken(imageDataURL);
 
-    onPhotoTaken(imageDataURL); // Mengirim data ke komponen induk (PhotoboxClient)
-  }, [onPhotoTaken, isReady]);
+    } catch (e) {
+      console.error("CAPTURE ERROR: Gagal mengambil gambar dari canvas", e);
+    }
+
+  }, [onPhotoTaken]);
 
 
   // Efek untuk menjalankan CAPTURE secara OTOMATIS

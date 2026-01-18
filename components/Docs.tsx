@@ -4,10 +4,10 @@ import { useState } from 'react';
 import TextType from './TextType';
 
 const content = {
-    Heading1: ["Ini Website Apaan Sih?"],
-    Heading2: ["Ini website sederhana yang menggunakan Next.Js"],
+    Heading1: ["Selamat Datang di Cosmic Photobooth"],
+    Heading2: ["Tangkap momen terbaikmu dengan gaya futuristik."],
     Paragraph: [
-        "Next.Js adalah Framework dari bahasa pemrograman Javascript yang sudah client side. Yang artinya aplikasi di jalankan dan di proses di browser pengguna, sehingga aplikasi dapat merespons interaksi pengguna dengan instan tanpa harus menunggu balasan dari server. Dan di dukung dengan framework Tailwind.css agar tampilan bisa lebih bagus dan deklarasi kode bisa lebih efesien"
+        "Website ini dirancang menggunakan teknologi Next.js terbaru dengan dukungan Tailwind CSS untuk menghadirkan pengalaman visual yang memukau. Nikmati antarmuka yang responsif, cepat, dan penuh gaya dengan tema Cosmic Glassmorphism. Pilih frame favoritmu, berpose, dan simpan kenangan dalam hitungan detik!"
     ],
 };
 
