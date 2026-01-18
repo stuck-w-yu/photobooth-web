@@ -5,7 +5,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 
 
 // Tambahkan prop shouldCapture dan hilangkan tombol manual
-const CameraCapture = ({ onPhotoTaken, shouldCapture, onReady }) => {
+const CameraCapture = ({ onPhotoTaken, shouldCapture, onReady, onError }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [stream, setStream] = useState(null);
@@ -111,12 +111,16 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture, onReady }) => {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         if (mounted) setErrorMsg("Browser ini tidak mendukung akses kamera (atau bukan HTTPS).");
         if (mounted) setIsReady(true);
+        if (onReady) onReady(false); // Trigger onReady(false) for initialization errors
+        if (onError) onError("Browser not supported or HTTP");
         return;
       }
 
       const hasDevice = await checkVideoDevices();
       if (!hasDevice) {
         if (mounted) setIsReady(true);
+        if (onReady) onReady(false); // Trigger onReady(false) for initialization errors
+        if (onError) onError("No camera device");
         return;
       }
 
@@ -146,13 +150,15 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture, onReady }) => {
             await videoRef.current.play();
           } catch (playErr) {
             console.error("ERROR [Camera]: Auto-play failed", playErr);
+            // Jangan fail di sini, kadang still works
           }
         }
       } catch (err) {
         console.error("ERROR [Capture]: Gagal mengakses kamera:", err);
         if (!mounted) return;
         setIsReady(true);
-        if (onReady) onReady(false); // Notify parent that camera failed
+        if (onReady) onReady(false);
+        if (onError) onError(err); // Notify parent
 
         if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
           setErrorMsg("Izin kamera ditolak. Mohon izinkan akses kamera.");

@@ -14,6 +14,7 @@ export default function PhotoboxClient() {
     const [countdown, setCountdown] = useState(0);
     const [isCapturing, setIsCapturing] = useState(false);
     const [isCameraReady, setIsCameraReady] = useState(false);
+    const [cameraError, setCameraError] = useState(false);
     const finalCanvasRef = useRef(null);
 
     // State untuk layout yang dipilih (Default ke 1-Single)
@@ -202,11 +203,20 @@ export default function PhotoboxClient() {
         onPhotoTaken: handlePhotoTaken,
         // Sinyal capture berjalan jika countdown=0, proses aktif, dan foto belum penuh
         shouldCapture: (countdown === 0 && isCapturing && capturedPhotos.length < selectedLayout.maxPhotos),
-        onReady: (status) => setIsCameraReady(status),
+        onReady: (status) => {
+            setIsCameraReady(status);
+            if (status) setCameraError(false);
+        },
+        onError: (err) => {
+            console.log("Client received camera error:", err);
+            setIsCameraReady(false);
+            setCameraError(true);
+        }
     }), [handlePhotoTaken, countdown, isCapturing, capturedPhotos.length, selectedLayout.maxPhotos]);
 
     // Teks yang ditampilkan di atas kamera
     const getCameraStatusText = () => {
+        if (cameraError) return "Kamera Error!";
         if (!isCameraReady) return "Menyiapkan Kamera...";
         if (!isCapturing && capturedPhotos.length === 0) return `Pilih layout dan tekan Mulai.`;
         if (countdown > 0) return `Foto #${capturedPhotos.length + 1}: Siap dalam ${countdown}...`;
@@ -404,6 +414,10 @@ export default function PhotoboxClient() {
                                     {isCapturing ? (
                                         <>
                                             <span className="animate-spin">🌀</span> Sedang Foto...
+                                        </>
+                                    ) : cameraError ? (
+                                        <>
+                                            <span>⚠️</span> Kamera Bermasalah
                                         </>
                                     ) : !isCameraReady ? (
                                         <>
