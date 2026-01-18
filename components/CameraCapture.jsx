@@ -96,7 +96,11 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture }) => {
           setStream(s);
           if (videoRef.current) {
             videoRef.current.srcObject = s;
+            // Explicitly play to ensure mobile compatibility
+            videoRef.current.play().catch(e => console.error("ERROR [Camera]: Auto-play failed", e));
+
             videoRef.current.onloadedmetadata = () => {
+              console.log("LOG [Camera]: Metadata loaded. Dimensions:", videoRef.current.videoWidth, "x", videoRef.current.videoHeight);
               setIsReady(true);
             };
           }
@@ -125,6 +129,7 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture }) => {
             ref={videoRef}
             autoPlay
             playsInline
+            muted // Recommended for autoplay policies
             className="absolute inset-0 w-full h-full object-cover"
             style={{ transform: 'scaleX(-1)' }} // Mirror locally
           />
