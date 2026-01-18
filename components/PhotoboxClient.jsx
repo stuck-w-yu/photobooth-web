@@ -283,7 +283,11 @@ export default function PhotoboxClient() {
 
                                 {/* Main Display Area */}
                                 <div className="w-full h-full bg-gray-900 flex items-center justify-center relative">
-                                    {countdown > 0 && (
+                                    {/* Camera Rendered ALWAYS */}
+                                    <CameraCapture {...cameraProps} />
+
+                                    {/* Overlays */}
+                                    {isCapturing && countdown > 0 && (
                                         <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-pulse">
                                             <div className="text-9xl font-bold text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]">
                                                 {countdown}
@@ -291,15 +295,15 @@ export default function PhotoboxClient() {
                                         </div>
                                     )}
 
-                                    {isCapturing ? (
-                                        <CameraCapture {...cameraProps} />
-                                    ) : (
-                                        <div className="text-center p-8">
-                                            <div className="w-20 h-20 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-4 border border-white/10">
-                                                <span className="text-4xl">📸</span>
+                                    {!isCapturing && (
+                                        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 backdrop-blur-[2px]">
+                                            <div className="text-center p-8">
+                                                <div className="w-20 h-20 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-4 border border-white/10">
+                                                    <span className="text-4xl">📸</span>
+                                                </div>
+                                                <h3 className="text-xl font-bold text-white mb-2">Siap Mengambil Gambar?</h3>
+                                                <p className="text-gray-400 text-sm">Pilih layout di panel kanan dan mulai sesi foto.</p>
                                             </div>
-                                            <h3 className="text-xl font-bold text-white mb-2">Siap Mengambil Gambar?</h3>
-                                            <p className="text-gray-400 text-sm">Pilih layout di panel kanan dan mulai sesi foto.</p>
                                         </div>
                                     )}
                                 </div>
