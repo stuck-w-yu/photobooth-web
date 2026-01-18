@@ -81,38 +81,93 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture }) => {
   }, [shouldCapture, handleCapture]); // Berjalan saat sinyal shouldCapture berubah menjadi true
 
 
-  // Logika akses kamera (sama seperti sebelumnya)
+  // Helper: Cek ketersediaan perangkat video
+  const checkVideoDevices = async () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+      console.warn("enumerateDevices() not supported.");
+      return false;
+    }
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const videoInputDevices = devices.filter(device => device.kind === 'videoinput');
+      if (videoInputDevices.length === 0) {
+        setErrorMsg("Tidak ada kamera yang terdeteksi.");
+        return false;
+      }
+      return true;
+    } catch (err) {
+      console.error("Error enumerating devices:", err);
+      return false;
+    }
+  };
+
+  // Logika akses kamera
   useEffect(() => {
-    if (!stream && typeof window !== 'undefined') {
+    let mounted = true;
+
+    const initCamera = async () => {
+      if (typeof window === 'undefined') return;
+
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        setErrorMsg("Browser tidak mendukung akses kamera atau tidak aman (HTTPS required).");
-        setIsReady(true);
+        if (mounted) setErrorMsg("Browser ini tidak mendukung akses kamera (atau bukan HTTPS).");
+        if (mounted) setIsReady(true);
         return;
       }
 
-      // ... (Logika mendapatkan stream) ...
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then((s) => {
-          setStream(s);
-          if (videoRef.current) {
-            videoRef.current.srcObject = s;
-            // Explicitly play to ensure mobile compatibility
-            videoRef.current.play().catch(e => console.error("ERROR [Camera]: Auto-play failed", e));
+      const hasDevice = await checkVideoDevices();
+      if (!hasDevice) {
+        if (mounted) setIsReady(true);
+        return;
+      }
 
-            videoRef.current.onloadedmetadata = () => {
-              console.log("LOG [Camera]: Metadata loaded. Dimensions:", videoRef.current.videoWidth, "x", videoRef.current.videoHeight);
-              setIsReady(true);
-            };
+      try {
+        const s = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        if (!mounted) {
+          s.getTracks().forEach(track => track.stop());
+          return;
+        }
+
+        setStream(s);
+
+        if (videoRef.current) {
+          videoRef.current.srcObject = s;
+
+          // Gunakan addEventListener untuk reliability lebih baik daripada properti on...
+          videoRef.current.onloadedmetadata = () => {
+            console.log(`LOG [Camera]: Metadata loaded. Size: ${videoRef.current.videoWidth}x${videoRef.current.videoHeight}`);
+            if (mounted) setIsReady(true);
+          };
+
+          // Explicit play
+          try {
+            await videoRef.current.play();
+          } catch (playErr) {
+            console.error("ERROR [Camera]: Auto-play failed", playErr);
           }
-        })
-        .catch((err) => {
-          setIsReady(true);
-          console.error("ERROR [Capture]: Gagal mengakses kamera:", err);
-          setErrorMsg("Akses kamera ditolak. Pastikan izin diberikan.");
-        });
+        }
+      } catch (err) {
+        console.error("ERROR [Capture]: Gagal mengakses kamera:", err);
+        if (!mounted) return;
+        setIsReady(true);
+
+        if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+          setErrorMsg("Izin kamera ditolak. Mohon izinkan akses kamera.");
+        } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+          setErrorMsg("Perangkat kamera tidak ditemukan.");
+        } else if (err.name === 'NotReadableError' || err.name === 'TrackStartError') {
+          setErrorMsg("Kamera sedang digunakan aplikasi lain.");
+        } else {
+          setErrorMsg(`Gagal mengakses kamera: ${err.message}`);
+        }
+      }
+    };
+
+    if (!stream) {
+      initCamera();
     }
 
     return () => {
+      mounted = false;
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
