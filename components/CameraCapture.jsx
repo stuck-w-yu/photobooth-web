@@ -5,7 +5,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 
 
 // Tambahkan prop shouldCapture dan hilangkan tombol manual
-const CameraCapture = ({ onPhotoTaken, shouldCapture }) => {
+const CameraCapture = ({ onPhotoTaken, shouldCapture, onReady }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [stream, setStream] = useState(null);
@@ -135,7 +135,10 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture }) => {
           // Gunakan addEventListener untuk reliability lebih baik daripada properti on...
           videoRef.current.onloadedmetadata = () => {
             console.log(`LOG [Camera]: Metadata loaded. Size: ${videoRef.current.videoWidth}x${videoRef.current.videoHeight}`);
-            if (mounted) setIsReady(true);
+            if (mounted) {
+              setIsReady(true);
+              if (onReady) onReady(true);
+            }
           };
 
           // Explicit play
@@ -149,6 +152,7 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture }) => {
         console.error("ERROR [Capture]: Gagal mengakses kamera:", err);
         if (!mounted) return;
         setIsReady(true);
+        if (onReady) onReady(false); // Notify parent that camera failed
 
         if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
           setErrorMsg("Izin kamera ditolak. Mohon izinkan akses kamera.");

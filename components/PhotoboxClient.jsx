@@ -13,6 +13,7 @@ export default function PhotoboxClient() {
     const [isCollageReady, setIsCollageReady] = useState(false);
     const [countdown, setCountdown] = useState(0);
     const [isCapturing, setIsCapturing] = useState(false);
+    const [isCameraReady, setIsCameraReady] = useState(false);
     const finalCanvasRef = useRef(null);
 
     // State untuk layout yang dipilih (Default ke 1-Single)
@@ -201,10 +202,12 @@ export default function PhotoboxClient() {
         onPhotoTaken: handlePhotoTaken,
         // Sinyal capture berjalan jika countdown=0, proses aktif, dan foto belum penuh
         shouldCapture: (countdown === 0 && isCapturing && capturedPhotos.length < selectedLayout.maxPhotos),
+        onReady: (status) => setIsCameraReady(status),
     }), [handlePhotoTaken, countdown, isCapturing, capturedPhotos.length, selectedLayout.maxPhotos]);
 
     // Teks yang ditampilkan di atas kamera
     const getCameraStatusText = () => {
+        if (!isCameraReady) return "Menyiapkan Kamera...";
         if (!isCapturing && capturedPhotos.length === 0) return `Pilih layout dan tekan Mulai.`;
         if (countdown > 0) return `Foto #${capturedPhotos.length + 1}: Siap dalam ${countdown}...`;
         if (countdown === 0 && capturedPhotos.length < selectedLayout.maxPhotos) return `Foto #${capturedPhotos.length + 1}: JEPPRET!`;
@@ -392,15 +395,19 @@ export default function PhotoboxClient() {
                                 {/* Action Button */}
                                 <button
                                     onClick={startCaptureSequence}
-                                    disabled={isCapturing}
-                                    className={`w-full py-4 rounded-2xl font-bold text-lg mt-6 shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 ${isCapturing
-                                        ? 'bg-red-500/20 text-red-400 border border-red-500/50 cursor-not-allowed'
+                                    disabled={isCapturing || !isCameraReady}
+                                    className={`w-full py-4 rounded-2xl font-bold text-lg mt-6 shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 ${isCapturing || !isCameraReady
+                                        ? 'bg-gray-500/20 text-gray-400 border border-gray-500/50 cursor-not-allowed'
                                         : 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-purple-500/25'
                                         }`}
                                 >
                                     {isCapturing ? (
                                         <>
                                             <span className="animate-spin">🌀</span> Sedang Foto...
+                                        </>
+                                    ) : !isCameraReady ? (
+                                        <>
+                                            <span className="animate-pulse">⏳</span> Menyiapkan Kamera...
                                         </>
                                     ) : (
                                         <>
