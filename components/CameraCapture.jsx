@@ -125,7 +125,16 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture, onReady, onError }) => {
       }
 
       try {
-        const s = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        // Request HD Resolution if available
+        const constraints = {
+          video: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            facingMode: "user"
+          },
+          audio: false
+        };
+        const s = await navigator.mediaDevices.getUserMedia(constraints);
         if (!mounted) {
           s.getTracks().forEach(track => track.stop());
           return;
@@ -209,12 +218,25 @@ const CameraCapture = ({ onPhotoTaken, shouldCapture, onReady, onError }) => {
           </div>
         </div>
       ) : (
-        // Loading State
-        <div className="flex flex-col items-center justify-center text-center p-8">
-          <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-          <p className={`text-sm font-medium ${isReady ? 'text-red-400' : 'text-purple-300'} max-w-xs`}>
-            {errorMsg || (isReady ? 'Kamera tidak tersedia atau akses ditolak.' : 'Menghubungkan ke kamera...')}
-          </p>
+        // Loading / Error State
+        <div className="flex flex-col items-center justify-center text-center p-8 z-50">
+          {errorMsg ? (
+            <div className="animate-fade-in-up">
+              <div className="text-4xl mb-4">⚠️</div>
+              <p className="text-red-400 font-bold mb-2">{errorMsg}</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="mt-4 px-6 py-2 bg-red-500/20 text-red-300 border border-red-500/50 rounded-full hover:bg-red-500/40 transition-all text-sm font-bold"
+              >
+                Coba Muat Ulang
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+              <p className="text-purple-300 font-medium animate-pulse">Menghubungkan ke kamera...</p>
+            </>
+          )}
         </div>
       )}
       <canvas ref={canvasRef} style={{ display: 'none' }} />
