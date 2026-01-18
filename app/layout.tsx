@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import { FaWindowClose } from "react-icons/fa";
-import { FaRegWindowMaximize } from "react-icons/fa6";
-import { FaRegWindowMinimize } from "react-icons/fa";
+
 
 
 const geistSans = Geist({
@@ -36,19 +34,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-[#4C1C72] text-black" >
-        <div className="bg-[#DBB5EE] text-black m-4 rounded-2xl mx-5 p-3 text-end pr-6">
-          <FaRegWindowMinimize className="inline-block mr-4"/>
-          <FaRegWindowMaximize className="inline-block mr-4"/>
-          <FaWindowClose className="inline-block mr-4"/>
-          </div>
-        <div className="bg-[#DBB5EE] text-black m-4 rounded-2xl p-1 text-end pr-6 px-2">
+      <body>
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
           <Navbar />
         </div>
-        <div className="bg-[#DBB5EE] text-black m-4 rounded-2xl mx-5 p-3 text-left justify-left pr-6">
+        <main className="relative z-10 w-full min-h-screen pt-24 px-4 sm:px-6 lg:px-8">
           {children}
-        </div>
+        </main>
       </body>
-    </html>
+    </html >
   );
 }

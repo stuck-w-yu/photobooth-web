@@ -1,0 +1,38 @@
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="dotPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="2" fill="#fda4af" />
+    </pattern>
+    <mask id="holeCute">
+        <rect width="800" height="800" fill="white" />
+        <rect x="110" y="110" width="580" height="440" fill="black" />
+    </mask>
+  </defs>
+
+  <!-- Background (Hole: 110,110, 580,440) using mask -->
+  <rect width="800" height="800" fill="#fff1f2" mask="url(#holeCute)" />
+  <rect width="800" height="800" fill="url(#dotPattern)" opacity="0.5" mask="url(#holeCute)"/>
+  
+  <!-- Cute Border -->
+  <rect x="100" y="100" width="600" height="460" rx="20" fill="none" stroke="#f43f5e" stroke-width="8" stroke-dasharray="20,10" />
+
+  <!-- Stickers -->
+  <text x="50" y="100" font-size="60" transform="rotate(-15 50,100)">💖</text>
+  <text x="700" y="100" font-size="60" transform="rotate(15 700,100)">✨</text>
+  <text x="680" y="550" font-size="50">🌸</text>
+  <text x="80" y="550" font-size="50">🎀</text>
+
+  <!-- Bottom Text -->
+  <text x="400" y="650" text-anchor="middle" font-family="'Comic Sans MS', 'Chalkboard SE', sans-serif" font-weight="bold" font-size="56" fill="#f43f5e">
+    So Cute!
+  </text>
+  
+  <text x="400" y="720" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#fb7185">
+    Best Friends Forever
+  </text>
+  
+  <!-- Clouds -->
+  <path d="M100 750 Q120 720 150 750 T200 750 T250 780" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" />
+  <path d="M550 750 Q570 720 600 750 T650 750 T700 780" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" />
+
+</svg>

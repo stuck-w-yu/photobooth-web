@@ -2,21 +2,21 @@
 
 import { useState } from "react";
 // Sesuaikan path import ini dengan lokasi file komponen Anda
-import MBTITestModal from "@/components/MBTITestModal"; 
+import MBTITestModal from "@/components/MBTITestModal";
 
 export default function MBTIPage() {
   // State untuk mengontrol apakah modal terbuka atau tertutup
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#DBB5EE] flex flex-col items-center justify-center p-4">
-      
+    <div className="min-h-screen flex flex-col items-center justify-center p-4">
+
       {/* Bagian Halaman Utama (Background) */}
-      <div className="text-center space-y-6 max-w-2xl">
+      <div className="text-center space-y-6 max-w-2xl glass-panel p-10 rounded-3xl">
         <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
           Kenali Diri Anda
         </h1>
-        <p className="text-black text-lg">
+        <p className="text-gray-300 text-lg leading-relaxed">
           Temukan tipe kepribadian MBTI Anda melalui tes psikologi interaktif ini.
           Hanya butuh waktu kurang dari 15 menit.
         </p>
@@ -31,11 +31,11 @@ export default function MBTIPage() {
       </div>
 
       {/* Memanggil Komponen Modal dengan Props yang Dibutuhkan */}
-      <MBTITestModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <MBTITestModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
-      
+
     </div>
   );
 }

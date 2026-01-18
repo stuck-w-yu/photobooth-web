@@ -1,0 +1,44 @@
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:#f9a8d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#22d3ee" stroke-width="1" opacity="0.5"/>
+    </pattern>
+    <mask id="holeVapor">
+         <rect width="800" height="800" fill="white" />
+         <rect x="110" y="110" width="580" height="440" fill="black" />
+    </mask>
+  </defs>
+
+  <!-- Background with Hole using mask because gradients are used -->
+  <rect width="800" height="800" fill="url(#sky)" mask="url(#holeVapor)" />
+  
+  <!-- Grid overlay on bottom (simulating classic vaporwave floor) -->
+  <rect x="0" y="550" width="800" height="250" fill="#1e1b4b" />
+  <rect x="0" y="550" width="800" height="250" fill="url(#grid)" />
+
+  <!-- Sun Graphic -->
+  <circle cx="400" cy="550" r="100" fill="#facc15" opacity="0.8" />
+  <!-- Stripes across sun -->
+  <path d="M300 520 H500 M300 540 H500 M300 560 H500 M300 580 H500" stroke="#a855f7" stroke-width="4" />
+
+  <!-- Frame Borders around photo -->
+  <rect x="105" y="105" width="590" height="450" fill="none" stroke="#22d3ee" stroke-width="6" />
+  <rect x="95" y="95" width="610" height="470" fill="none" stroke="#f472b6" stroke-width="2" />
+
+  <!-- Text -->
+  <text x="400" y="700" text-anchor="middle" font-family="Impact, sans-serif" font-size="60" fill="#22d3ee" stroke="#c084fc" stroke-width="2" letter-spacing="4">
+    V I B E S
+  </text>
+  <text x="400" y="750" text-anchor="middle" font-family="Arial, sans-serif" font-style="italic" font-size="24" fill="#f472b6" letter-spacing="2">
+    1 9 8 4
+  </text>
+  
+  <!-- Palm tree silhouettes (simplified) -->
+  <path d="M100 780 L120 650 L140 780 Z" fill="black" />
+  <path d="M660 780 L680 650 L700 780 Z" fill="black" />
+
+</svg>

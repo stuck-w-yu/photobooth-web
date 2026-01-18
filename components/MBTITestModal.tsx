@@ -171,7 +171,7 @@ export default function MBTITestModal({ isOpen, onClose }: MBTITestModalProps) {
       ></div>
 
       {/* ========= Modal ========= */}
-      <div className="relative glass rounded-3xl p-6 bg-gray-900 shadow-2xl max-w-4xl mx-4 w-full max-h-[90vh] overflow-y-auto">
+      <div className="relative glass-panel bg-[#0B0014]/90 rounded-3xl p-6 shadow-2xl max-w-4xl mx-4 w-full max-h-[90vh] overflow-y-auto">
         {/* ========= Header ========= */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold gradient-text text-amber-50">
@@ -342,11 +342,10 @@ export default function MBTITestModal({ isOpen, onClose }: MBTITestModalProps) {
                     <div
                       className="bg-purple-500 h-2 rounded-full"
                       style={{
-                        width: `${
-                          (mbtiResult.scores.E /
+                        width: `${(mbtiResult.scores.E /
                             (mbtiResult.scores.E + mbtiResult.scores.I)) *
                           100
-                        }%`,
+                          }%`,
                       }}
                     ></div>
                   </div>
@@ -364,11 +363,10 @@ export default function MBTITestModal({ isOpen, onClose }: MBTITestModalProps) {
                     <div
                       className="bg-pink-500 h-2 rounded-full"
                       style={{
-                        width: `${
-                          (mbtiResult.scores.S /
+                        width: `${(mbtiResult.scores.S /
                             (mbtiResult.scores.S + mbtiResult.scores.N)) *
                           100
-                        }%`,
+                          }%`,
                       }}
                     ></div>
                   </div>
@@ -385,11 +383,10 @@ export default function MBTITestModal({ isOpen, onClose }: MBTITestModalProps) {
                     <div
                       className="bg-green-500 h-2 rounded-full"
                       style={{
-                        width: `${
-                          (mbtiResult.scores.T /
+                        width: `${(mbtiResult.scores.T /
                             (mbtiResult.scores.T + mbtiResult.scores.F)) *
                           100
-                        }%`,
+                          }%`,
                       }}
                     ></div>
                   </div>
@@ -407,11 +404,10 @@ export default function MBTITestModal({ isOpen, onClose }: MBTITestModalProps) {
                     <div
                       className="bg-yellow-500 h-2 rounded-full"
                       style={{
-                        width: `${
-                          (mbtiResult.scores.J /
+                        width: `${(mbtiResult.scores.J /
                             (mbtiResult.scores.J + mbtiResult.scores.P)) *
                           100
-                        }%`,
+                          }%`,
                       }}
                     ></div>
                   </div>

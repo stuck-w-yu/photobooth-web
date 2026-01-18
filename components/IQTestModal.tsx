@@ -242,7 +242,7 @@ export default function IQTestModal({ isOpen, onClose }: IQTestModalProps) {
       ></div>
 
       {/* ========= Modal ========= */}
-      <div className="relative glass rounded-3xl p-6 shadow-2xl max-w-4xl mx-4 w-full max-h-[90vh] overflow-y-auto bg-gray-900">
+      <div className="relative glass-panel bg-[#0B0014]/90 rounded-3xl p-6 shadow-2xl max-w-4xl mx-4 w-full max-h-[90vh] overflow-y-auto">
         {/* ========= Header ========= */}
         <div className="flex items-center justify-between mb-6 ">
           <h2 className="text-2xl font-bold gradient-text text-amber-50">
@@ -289,13 +289,12 @@ export default function IQTestModal({ isOpen, onClose }: IQTestModalProps) {
                     <button
                       key={index}
                       onClick={() => goToQuestion(index)}
-                      className={`w-8 h-8 rounded-full text-xs font-medium transition-colors ${
-                        index < selectedAnswers.length
+                      className={`w-8 h-8 rounded-full text-xs font-medium transition-colors ${index < selectedAnswers.length
                           ? "bg-green-500 hover:bg-green-400"
                           : index === currentQuestion
-                          ? "bg-purple-500"
-                          : "bg-gray-600 hover:bg-gray-500"
-                      }`}
+                            ? "bg-purple-500"
+                            : "bg-gray-600 hover:bg-gray-500"
+                        }`}
                     >
                       {index < selectedAnswers.length ? "✓" : index + 1}
                     </button>
@@ -316,9 +315,8 @@ export default function IQTestModal({ isOpen, onClose }: IQTestModalProps) {
               <div
                 className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-300"
                 style={{
-                  width: `${
-                    ((currentQuestion + 1) / iqQuestions.length) * 100
-                  }%`,
+                  width: `${((currentQuestion + 1) / iqQuestions.length) * 100
+                    }%`,
                 }}
               ></div>
             </div>
@@ -350,38 +348,35 @@ export default function IQTestModal({ isOpen, onClose }: IQTestModalProps) {
                         disabled={
                           selectedAnswers[currentQuestion] !== undefined
                         }
-                        className={`p-4 rounded-xl text-left transition-all duration-200 ${
-                          selectedAnswers[currentQuestion] === index
+                        className={`p-4 rounded-xl text-left transition-all duration-200 ${selectedAnswers[currentQuestion] === index
                             ? selectedAnswers[currentQuestion] ===
                               iqQuestions[currentQuestion].correct
                               ? "bg-green-500/20 border-2 border-green-500"
                               : "bg-red-500/20 border-2 border-red-500"
                             : selectedAnswers[currentQuestion] !== undefined &&
                               index === iqQuestions[currentQuestion].correct
-                            ? "bg-green-500/20 border-2 border-green-500"
-                            : !selectedAnswers[currentQuestion]
-                            ? "bg-white/10 hover:bg-white/20 border-2 border-gray-600 hover:border-purple-400"
-                            : "bg-gray-700/50 border-2 border-gray-600 cursor-not-allowed"
-                        }`}
+                              ? "bg-green-500/20 border-2 border-green-500"
+                              : !selectedAnswers[currentQuestion]
+                                ? "bg-white/10 hover:bg-white/20 border-2 border-gray-600 hover:border-purple-400"
+                                : "bg-gray-700/50 border-2 border-gray-600 cursor-not-allowed"
+                          }`}
                       >
                         <div className="flex items-center gap-3">
                           <div
-                            className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                              selectedAnswers[currentQuestion] === index
+                            className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedAnswers[currentQuestion] === index
                                 ? "border-white bg-white"
                                 : "border-gray-400"
-                            }`}
+                              }`}
                           >
                             {selectedAnswers[currentQuestion] === index && (
                               <div className="w-3 h-3 bg-purple-600 rounded-full"></div>
                             )}
                           </div>
                           <span
-                            className={`text-sm ${
-                              selectedAnswers[currentQuestion] === index
+                            className={`text-sm ${selectedAnswers[currentQuestion] === index
                                 ? "text-white font-medium"
                                 : "text-gray-300"
-                            }`}
+                              }`}
                           >
                             {option}
                           </span>
@@ -456,11 +451,10 @@ export default function IQTestModal({ isOpen, onClose }: IQTestModalProps) {
                   <div key={index} className="bg-black/20 rounded-lg p-4">
                     <div className="flex items-start gap-3">
                       <div
-                        className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${
-                          testResult.answers[index] === question.correct
+                        className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${testResult.answers[index] === question.correct
                             ? "bg-green-500 text-white"
                             : "bg-red-500 text-white"
-                        }`}
+                          }`}
                       >
                         {testResult.answers[index] === question.correct
                           ? "✓"
@@ -475,11 +469,10 @@ export default function IQTestModal({ isOpen, onClose }: IQTestModalProps) {
                             Jawaban Anda:
                           </span>
                           <span
-                            className={`text-xs ${
-                              testResult.answers[index] === question.correct
+                            className={`text-xs ${testResult.answers[index] === question.correct
                                 ? "text-green-400"
                                 : "text-red-400"
-                            }`}
+                              }`}
                           >
                             {question.options[testResult.answers[index]]}
                           </span>

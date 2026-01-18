@@ -1,0 +1,42 @@
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Background with Hole using 'evenodd' rule is the simplified way for paths -->
+  <!-- M0 0 H800 V800 H0 Z ... M110 110 H690 V550 H110 Z -->
+  <path fill="#f8fafc" fill-rule="evenodd" d="M0 0 H800 V800 H0 Z M110 110 H690 V550 H110 Z" />
+  
+  <!-- Subtle Texture -->
+  <rect width="800" height="800" fill="transparent">
+     <animate attributeName="opacity" values="0.5;0.6;0.5" dur="4s" repeatCount="indefinite" />
+  </rect>
+
+  <!-- Frame Accents around the hole -->
+  <rect x="90" y="90" width="620" height="520" rx="2" fill="none" stroke="none" /> 
+  <!-- Inner border decoration -->
+  <rect x="100" y="100" width="600" height="460" rx="4" fill="none" stroke="#0f172a" stroke-width="2" />
+
+  <!-- Typography -->
+  <text x="400" y="650" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="900" font-size="64" fill="#0f172a" letter-spacing="-2">
+    MINIMAL
+  </text>
+  <text x="400" y="700" text-anchor="middle" font-family="Courier New, monospace" font-size="16" fill="#64748b" letter-spacing="4">
+    EST. 2024 • EDITION 01
+  </text>
+  
+  <!-- Barcode-like element -->
+  <g transform="translate(350, 730)">
+    <rect x="0" width="2" height="30" fill="#0f172a" />
+    <rect x="5" width="4" height="30" fill="#0f172a" />
+    <rect x="12" width="1" height="30" fill="#0f172a" />
+    <rect x="20" width="5" height="30" fill="#0f172a" />
+    <rect x="30" width="2" height="30" fill="#0f172a" />
+    <rect x="70" width="2" height="30" fill="#0f172a" />
+    <rect x="75" width="4" height="30" fill="#0f172a" />
+    <rect x="85" width="5" height="30" fill="#0f172a" />
+  </g>
+
+</svg>
